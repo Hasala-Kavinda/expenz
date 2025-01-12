@@ -9,9 +9,22 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(),
+    return MaterialApp(
+      title: "Expanz",
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: "Inter",
+      ),
+      home: const Scaffold(
+        body: Center(
+          child: Text(
+            "Hello Flutter",
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ),
       ),
     );
   }
