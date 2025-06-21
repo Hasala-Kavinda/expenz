@@ -16,6 +16,6 @@ class MainApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: "Inter",
         ),
-        home: const OnboardingScreen());
+        home: const OnBoardingScreen());
   }
 }
