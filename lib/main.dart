@@ -1,7 +1,10 @@
 import 'package:expenz/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferences.getInstance();
   runApp(const MainApp());
 }
 
@@ -11,7 +14,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "Expanz",
+        title: "Expanz", 
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: "Inter",

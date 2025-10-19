@@ -1,5 +1,7 @@
 import 'package:expenz/constants/colors.dart';
 import 'package:expenz/constants/constants.dart';
+import 'package:expenz/screens/main_screen.dart';
+import 'package:expenz/services/user_service.dart';
 import 'package:expenz/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +17,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
   bool _remberMe = false;
 
 // Form key for the form validation
-  final _formKey = GlobalKey<FormFieldState>();
+  final _formKey = GlobalKey<FormState>();
 
 // controllers for the text form fields
   final TextEditingController _userNameController = TextEditingController();
@@ -84,7 +86,8 @@ class _UserDataScreenState extends State<UserDataScreen> {
                         validator: (value) {
                           //check whether the user entered a valid password
                           if (value!.isEmpty) {
-                            return "Please Enter your Email";
+                            print("Email is not working");
+                            return "Enter a valid email";
                           }
                         },
                         decoration: InputDecoration(
@@ -173,7 +176,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                         height: 20,
                       ),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             if (_formKey.currentState!.validate()) {
                               // form is valid, process data
                               String username = _userNameController.text;
@@ -182,8 +185,23 @@ class _UserDataScreenState extends State<UserDataScreen> {
                               String confirmPassword =
                                   _confirmPasswordController.text;
 
-                              print(
-                                  "$username $email $password $confirmPassword");
+                              // save the username and data in the device storage
+                              await UserServices.storeUserDetails(
+                                  userName: username,
+                                  email: email,
+                                  password: password,
+                                  confirmPasswrd: confirmPassword,
+                                  context: context);
+                            }
+
+                            // navigate to the main screen
+                            if (context.mounted) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return const MainScreen();
+                                }),
+                              );
                             }
                           },
                           child: const CustomButton(

@@ -33,7 +33,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   onPageChanged: (index) {
                     setState(() {
                       showDetailsPage = index == 3;
-                      print(showDetailsPage);
+                      // print(showDetailsPage);
                     });
                   },
                   children: [
