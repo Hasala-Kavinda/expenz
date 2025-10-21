@@ -1,4 +1,4 @@
-import 'package:expenz/screens/onboarding_model.dart';
+import 'package:expenz/models/onboarding_model.dart';
 
 class OnboardingData {
   static final List<Onboarding> onbardingDataList = [

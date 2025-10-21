@@ -87,9 +87,10 @@ class _UserDataScreenState extends State<UserDataScreen> {
                         validator: (value) {
                           //check whether the user entered a valid password
                           if (value!.isEmpty) {
-                            print("Email is not working");
+                            // print("Email is not working");
                             return "Enter a valid email";
                           }
+                          return null;
                         },
                         decoration: InputDecoration(
                           hintText: "Email",
@@ -110,6 +111,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                           if (value!.isEmpty) {
                             return "Please Enter the Password";
                           }
+                          return null;
                         },
                         obscureText: true,
                         decoration: InputDecoration(
@@ -131,6 +133,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                           if (value!.isEmpty) {
                             return "Please Enter same password";
                           }
+                          return null;
                         },
                         obscureText: true,
                         decoration: InputDecoration(
