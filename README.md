@@ -1,3 +1,2 @@
 # expenz
-
-A new Flutter project.
+A flutte app expense and income calculation. 
