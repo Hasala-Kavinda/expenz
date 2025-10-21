@@ -1,4 +1,3 @@
-import 'package:expenz/screens/onboarding_screen.dart';
 import 'package:expenz/services/user_service.dart';
 import 'package:expenz/widgets/wrapper.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +16,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: UserServices.checkUsername(),
+      
       builder: (context, snapshot) {
         // if the snapshot is waiting
         if (snapshot.connectionState == ConnectionState.waiting) {

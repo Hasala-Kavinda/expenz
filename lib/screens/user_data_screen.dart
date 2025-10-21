@@ -68,6 +68,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                           if (value!.isEmpty) {
                             return "Please Enter your Name";
                           }
+                          return null;
                         },
                         decoration: InputDecoration(
                           hintText: "Name",
