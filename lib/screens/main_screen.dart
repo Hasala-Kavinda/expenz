@@ -1,9 +1,13 @@
 import 'package:expenz/constants/colors.dart';
+import 'package:expenz/models/expence_model.dart';
+import 'package:expenz/models/income_model.dart';
 import 'package:expenz/screens/add_new_screen.dart';
 import 'package:expenz/screens/budget_screen.dart';
 import 'package:expenz/screens/home_screen.dart';
 import 'package:expenz/screens/profle_screeen.dart';
 import 'package:expenz/screens/transaction_screen.dart';
+import 'package:expenz/services/expence_services.dart';
+import 'package:expenz/services/income_services.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -15,13 +19,63 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _currentPageInex = 0;
+
+  List<Expense> expensesList = [];
+  List<Income> incomeList = [];
+
+// function to fetch expenses
+  void fetchExpenses() async {
+    List<Expense> loadedExpenses = await ExpenceService().loadExpenses();
+    setState(() {
+      expensesList = loadedExpenses;
+    });
+  }
+
+  // add new expense
+  void addNewExpense(Expense newExpense) {
+    ExpenceService().saveExpense(newExpense, context);
+
+    // Update the list expenses
+    setState(() {
+      expensesList.add(newExpense);
+    });
+  }
+
+// a function to fetch income data
+  void fetchIncomes() async {
+    List<Income> loadedIncomes = await IncomeServices().loadIncomes();
+    setState(() {
+      incomeList = loadedIncomes;
+    });
+  }
+
+  void addNewIncome(Income newIncome) {
+    IncomeServices().saveIncome(newIncome, context);
+
+    setState(() {
+      incomeList.add(newIncome);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+      fetchExpenses();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // curent page index
 
     // Screen list
     final List<Widget> pages = [
-      AddNewScreen(),
+      AddNewScreen(
+        addExpense: addNewExpense,
+        addIncome: addNewIncome,
+      ),
       HomeScreen(),
       TransactionScreen(),
       BudgetScreen(),
