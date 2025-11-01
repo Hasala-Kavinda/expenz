@@ -100,7 +100,7 @@ class ExpenceService {
       //show snackbar
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Expense addessuccessfully'),
+          content: Text('Expense added successfully'),
           duration: Duration(seconds: 2),
         ),
       );

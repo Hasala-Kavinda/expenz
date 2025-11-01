@@ -169,7 +169,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
                       top: MediaQuery.of(context).size.height * 0.3),
                   padding: const EdgeInsets.all(kDefaultPadding),
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.9,
+                  height: MediaQuery.of(context).size.height * 0.8,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
@@ -299,11 +299,13 @@ class _AddNewScreenState extends State<AddNewScreen> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
+                                    // Ensure lastDate is >= initialDate to avoid assertion
                                     showDatePicker(
                                       context: context,
-                                      initialDate: DateTime.now(),
+                                      initialDate: _selectedDate,
                                       firstDate: DateTime(2000),
-                                      lastDate: DateTime(2025),
+                                      lastDate: DateTime(DateTime.now().year +
+                                          5), // 5 years ahead
                                     ).then((value) {
                                       if (value != null) {
                                         setState(() {

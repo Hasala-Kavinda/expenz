@@ -41,6 +41,15 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  void removeExpense(Expense expense) {
+    ExpenceService().deleteExpense(expense.id, context);
+
+    // Update the list expenses
+    setState(() {
+      expensesList.remove(expense);
+    });
+  }
+
 // a function to fetch income data
   void fetchIncomes() async {
     List<Income> loadedIncomes = await IncomeServices().loadIncomes();
@@ -60,6 +69,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+    fetchExpenses();
+    fetchIncomes();
 
     setState(() {
       fetchExpenses();
@@ -72,12 +83,16 @@ class _MainScreenState extends State<MainScreen> {
 
     // Screen list
     final List<Widget> pages = [
+      TransactionScreen(
+        expensesList: expensesList,
+        incomeList: incomeList,
+        onDismissedExpenses: removeExpense,
+      ),
+      HomeScreen(),
       AddNewScreen(
         addExpense: addNewExpense,
         addIncome: addNewIncome,
       ),
-      HomeScreen(),
-      TransactionScreen(),
       BudgetScreen(),
       ProfileScreen(),
     ];
