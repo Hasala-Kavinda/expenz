@@ -3,6 +3,7 @@ import 'package:expenz/constants/constants.dart';
 import 'package:expenz/models/expence_model.dart';
 import 'package:expenz/models/income_model.dart';
 import 'package:expenz/widgets/expense_card.dart';
+import 'package:expenz/widgets/income_card.dart';
 import 'package:flutter/material.dart';
 
 class TransactionScreen extends StatefulWidget {
@@ -10,15 +11,14 @@ class TransactionScreen extends StatefulWidget {
   final void Function(Expense) onDismissedExpenses;
 
   final List<Income> incomeList;
-  // final void Function(Income) onDismissedIncome;
+  final void Function(Income) onDismissedIncome;
 
   const TransactionScreen({
     super.key,
     required this.expensesList,
-    // required this.onDismissedExpenses,
     required this.incomeList,
     required this.onDismissedExpenses,
-    // required this.onDismissedIncome
+    required this.onDismissedIncome,
   });
 
   @override
@@ -58,7 +58,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 height: 20,
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.35,
+                height: MediaQuery.of(context).size.height * 0.25,
                 child: SingleChildScrollView(
                   // Wrap with SingleChildScrollView to make the content scrollable
                   child: Column(
@@ -95,6 +95,63 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                     category: expense.category,
                                     description: expense.description,
                                     createdAt: expense.time,
+                                  ),
+                                );
+                              },
+                            ),
+                    ],
+                  ),
+                ),
+              ),
+              const Text(
+                "Incomes",
+                style: TextStyle(
+                  fontSize: 19,
+                  fontWeight: FontWeight.bold,
+                  color: kBlack,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.25,
+                child: SingleChildScrollView(
+                  // Wrap with SingleChildScrollView to make the content scrollable
+                  child: Column(
+                    // Wrap with Column to ensure proper layout
+                    children: [
+                      widget.incomeList.isEmpty
+                          ? const Text(
+                              "No expenses added yet, add some expenses to see here",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: kGrey,
+                              ),
+                            )
+                          : ListView.builder(
+                              shrinkWrap:
+                                  true, // Set shrinkWrap to true to allow the ListView to adapt to its content size
+                              scrollDirection: Axis.vertical,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: widget.incomeList.length,
+                              itemBuilder: (context, index) {
+                                final income = widget.incomeList[index];
+                                return Dismissible(
+                                  key: ValueKey(income),
+                                  direction: DismissDirection.startToEnd,
+                                  onDismissed: (direction) {
+                                    setState(() {
+                                      widget.onDismissedIncome(income);
+                                    });
+                                  },
+                                  child: IncomeCard(
+                                    title: income.title,
+                                    date: income.date,
+                                    amount: income.amount,
+                                    category: income.category,
+                                    description: income.description,
+                                    createdAt: income.time,
                                   ),
                                 );
                               },

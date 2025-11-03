@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 class AddNewScreen extends StatefulWidget {
   final Function(Expense) addExpense;
   final Function(Income) addIncome;
+
   const AddNewScreen(
       {super.key, required this.addExpense, required this.addIncome});
 

@@ -1,17 +1,17 @@
 import 'package:expenz/constants/colors.dart';
-import 'package:expenz/models/expence_model.dart';
+import 'package:expenz/models/income_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class ExpenceCard extends StatelessWidget {
+class IncomeCard extends StatelessWidget {
   final String title;
   final DateTime date;
   final double amount;
-  final ExpenseCategory category;
+  final IncomeCategory category;
   final String description;
   final DateTime createdAt;
 
-  const ExpenceCard({
+  const IncomeCard({
     super.key,
     required this.title,
     required this.date,
@@ -50,7 +50,7 @@ class ExpenceCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Image.asset(
-                  expenseCategoryImages[category]!,
+                  incomeCategoryImages[category]!,
                   width: 20,
                   height: 20,
                 ),
@@ -84,11 +84,11 @@ class ExpenceCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    "- \$${amount.toStringAsFixed(2)}",
+                    "+ \$${amount.toStringAsFixed(2)}",
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: kRed,
+                      color: kGreen,
                     ),
                   ),
                   Text(

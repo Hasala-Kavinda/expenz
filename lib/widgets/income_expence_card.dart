@@ -7,6 +7,7 @@ class IncomeExpenceCard extends StatefulWidget {
   final double amount;
   final Color bgColor;
   final String imageUrl;
+
   const IncomeExpenceCard({
     super.key,
     required this.title,
