@@ -75,6 +75,36 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  // category total expenses
+  Map<ExpenseCategory, double> calculateExpenseCategories() {
+    Map<ExpenseCategory, double> categoryTotals = {};
+
+    for (var expense in expensesList) {
+      categoryTotals.update(
+        expense.category,
+        (existingTotal) => existingTotal + expense.amount,
+        ifAbsent: () => expense.amount,
+      );
+    }
+
+    return categoryTotals;
+  }
+
+  // category total incomes
+  Map<IncomeCategory, double> calculateIncomeCategories() {
+    Map<IncomeCategory, double> categoryTotals = {};
+
+    for (var income in incomeList) {
+      categoryTotals.update(
+        income.category,
+        (existingTotal) => existingTotal + income.amount,
+        ifAbsent: () => income.amount,
+      );
+    }
+
+    return categoryTotals;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -92,7 +122,14 @@ class _MainScreenState extends State<MainScreen> {
 
     // Screen list
     final List<Widget> pages = [
-      HomeScreen(),
+      BudgetScreen(
+        expenseCategoryTotals: calculateExpenseCategories(),
+        incomeCategoryTotals: calculateIncomeCategories(),
+      ),
+      HomeScreen(
+        incomeList: incomeList,
+        expensesList: expensesList,
+      ),
       TransactionScreen(
         expensesList: expensesList,
         incomeList: incomeList,
@@ -103,7 +140,6 @@ class _MainScreenState extends State<MainScreen> {
         addExpense: addNewExpense,
         addIncome: addNewIncome,
       ),
-      BudgetScreen(),
       ProfileScreen(),
     ];
     return Scaffold(
