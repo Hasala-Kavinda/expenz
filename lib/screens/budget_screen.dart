@@ -24,7 +24,7 @@ class BudgetScreen extends StatefulWidget {
 class _BudgetScreenState extends State<BudgetScreen> {
   int _selected = 0;
 
-  //methode to find the category color from the category
+  //method to find the category color from the category
   Color getCategoryColor(dynamic category) {
     if (category is ExpenseCategory) {
       return expenseCategoryColors[category]!;
